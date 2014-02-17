@@ -45,6 +45,7 @@ func main() {
 	conn.AddHandler(irc.PRIVMSG, func(c *irc.Connection, e *irc.Event) {
 		nick := strings.Split(e.Payload["sender"], "!")[0]
 		message := e.Payload["message"][:len(e.Payload["message"])-2]
+		message := Replace(ToLower(message), " ", "", -1)
 
 		if _, ok := keys[message]; !ok {
 			return
